@@ -41,6 +41,11 @@ dependencies:
 | elao_grafana_config_file     | /etc/grafana/grafana.ini | string |             |
 | elao_grafana_config_template | config/base.ini.j2       | string |             |
 | elao_grafana_config          | []                       | Array  |             |
+| elao_grafana_api_url         | http://127.0.0.1:3000    | string |             |
+| elao_grafana_api_user        | admin                    | string |             |
+| elao_grafana_api_password    | admin                    | string |             |
+| elao_grafana_datasources     | []                       | Array  |             |
+| elao_grafana_dashboards      | []                       | Array  |             |
 
 ### Configuration example
 
@@ -54,6 +59,33 @@ elao_grafana_config:
   - security:
     - admin_user: admin
     - admin_password: admin
+```
+
+Configure datasources :
+
+```yaml
+elao_grafana_datasources:
+  - name: influxdb
+    type: influxdb
+    isDefault: true
+    url: http://127.0.0.1:8086
+    access: proxy
+    basicAuth: false
+    database: stats
+    user: admin
+    password: admin
+```
+
+Configure dashboards :
+
+  * Template need to be a valid json respecting [grafana API schema](http://docs.grafana.org/reference/http_api/#create-update-dashboard)
+  * Set id = null to create a new dashboard
+  * Set overwrite = true to overwrite existing dashboard.
+
+```yaml
+elao_grafana_dashboards:
+  - name: default
+    template: "{{ playbook_dir }}/templates/grafana/dashboards/default.json"
 ```
 
 ## Example playbook

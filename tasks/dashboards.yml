@@ -1,0 +1,12 @@
+---
+
+- name: dashboards > Requirements
+  apt:
+    name: curl
+
+- name: dashboards > Create or update dashboards
+  command: >
+     curl -u {{ elao_grafana_api_user }}:{{ elao_grafana_api_password }} -XPOST {{ elao_grafana_api_url }}/api/dashboards/db -d '{{ lookup('file', item.template) }}' -H 'content-type: application/json'
+  register: _elao_grafana_dashboards_create_or_update_output
+  failed_when: "'success' not in _elao_grafana_dashboards_create_or_update_output.stdout and 'name-exists' not in _elao_grafana_dashboards_create_or_update_output.stdout"
+  with_items: elao_grafana_dashboards

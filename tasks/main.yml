@@ -3,3 +3,7 @@
 - include: install.yml
 - include: config.yml
 - include: services.yml
+- include: datasources.yml
+  when: elao_grafana_datasources|length > 0
+- include: dashboards.yml
+  when: elao_grafana_dashboards|length > 0

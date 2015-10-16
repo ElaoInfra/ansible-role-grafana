@@ -4,3 +4,14 @@
 elao_grafana_config_file:      /etc/grafana/grafana.ini
 elao_grafana_config_template:  config/base.ini.j2
 elao_grafana_config:           []
+
+# API parameters
+elao_grafana_api_url:       http://127.0.0.1:3000
+elao_grafana_api_user:      admin
+elao_grafana_api_password:  admin
+
+# Datasources
+elao_grafana_datasources: []
+
+# Dashboard
+elao_grafana_dashboards: []
